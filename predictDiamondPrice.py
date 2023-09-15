@@ -1,9 +1,9 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import joblib
 
 # Load your trained scikit-learn KNeighborsRegressor model here
-# Replace 'your_model.pkl' with the actual model file path
 model = joblib.load('model.pkl')
 
 st.title("Diamond Price Prediction")
@@ -33,10 +33,25 @@ z = st.slider("Depth (mm):", min_value=0.0, max_value=10.0, step=0.01, value=0.0
 # Predict button
 if st.button("Predict Diamond Price"):
     try:
-        user_input = np.array([carat, x, y, z]).reshape(1, -1)
+        # Create a DataFrame from the user input
+        user_input = pd.DataFrame({
+            'carat': [carat],
+            'cut': [cut],
+            'color': [color],
+            'clarity': [clarity],
+            'depth': [depth],
+            'table': [table],
+            'x': [x],
+            'y': [y],
+            'z': [z]
+        })
+
+        # Map categorical values to numerical codes (you can use a more sophisticated mapping if needed)
+        user_input['cut'] = user_input['cut'].map({'Fair': 0, 'Good': 1, 'Very Good': 2, 'Premium': 3, 'Ideal': 4})
+        user_input['color'] = user_input['color'].map({'J': 0, 'I': 1, 'H': 2, 'G': 3, 'F': 4, 'E': 5, 'D': 6})
+        user_input['clarity'] = user_input['clarity'].map({'I1': 0, 'SI2': 1, 'SI1': 2, 'VS2': 3, 'VS1': 4, 'VVS2': 5, 'VVS1': 6, 'IF': 7})
+
         predicted_price = model.predict(user_input)
         st.subheader(f'Predicted Price: ${predicted_price[0]:.2f}')
     except ValueError:
         st.error("Please enter valid numerical values for all fields.")
-
-# Streamlit will automatically display the app in your browser
