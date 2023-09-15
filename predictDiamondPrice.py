@@ -53,11 +53,17 @@ if st.button("Bulk Import and Predict"):
             # Predict prices for each row and add a new column 'Predicted Price' to the dataset
             df['Predicted Price'] = df.apply(predict_price, axis=1)
 
+            # Display the dataset with predictions
             st.subheader("Imported Dataset with Predictions")
             st.write(df)
 
-            # Optionally, you can save the dataset with predictions to a new CSV file.
-            # df.to_csv('predicted_dataset.csv', index=False)
+            # Save the dataset with predictions to a new CSV file
+            df.to_csv('predicted_dataset.csv', index=False)
+
+            # Provide a download link for the user
+            st.markdown("### Download the Predicted Dataset")
+            st.markdown("[Download CSV](predicted_dataset.csv)")
 
         except Exception as e:
             st.error(f"An error occurred while importing the dataset: {str(e)}")
+    
