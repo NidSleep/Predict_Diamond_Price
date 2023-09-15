@@ -20,7 +20,7 @@ color = st.selectbox("Color:", ["J", "I", "H", "G", "F", "E", "D"])
 clarity = st.selectbox("Clarity:", ["I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF"])
 
 # Use st.slider for table input
-table = st.slider("Table:", min_value=43.0, max_value=95.0, step=0.01, value=50.0)
+table = st.slider("Table:", min_value=43.0, max_value=95.0, step=0.01, value=43.0)
 
 # Use st.slider for length (mm) input
 x = st.slider("Length (mm):", min_value=0.0, max_value=10.0, step=0.01, value=0.0)
