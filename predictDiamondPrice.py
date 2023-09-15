@@ -4,7 +4,7 @@ import joblib
 
 # Load your trained scikit-learn KNeighborsRegressor model here
 # Replace 'your_model.pkl' with the actual model file path
-model = joblib.load('C:\\Users\\user\\diamond\\model.pkl')
+model = joblib.load('model.pkl')
 
 st.title("Diamond Price Prediction")
 
