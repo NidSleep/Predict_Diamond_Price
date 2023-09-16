@@ -3,4 +3,4 @@ numpy
 joblib
 xgboost
 pandas
-openpyxl
+openpyxl==3.0.9 
