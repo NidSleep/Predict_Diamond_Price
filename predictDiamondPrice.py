@@ -61,6 +61,7 @@ if st.button("Predict Diamond Price"):
     else:
         st.error("An error occurred while making predictions.")
         st.write("Input Data:")
+        st.write(input_data)
         st.write(carat)
         st.write(cut)
 
