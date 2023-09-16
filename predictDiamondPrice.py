@@ -40,12 +40,12 @@ table = st.slider("Table:", 50.0, 80.0, 50.0, 0.1)
 x = st.slider("Length (mm):", 0.0, 10.0, 0.0, 0.1)
 y = st.slider("Width (mm):", 0.0, 10.0, 0.0, 0.1)
 z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.1)
-color = encode_color(color)  # Encode color
-clarity = encode_clarity(clarity)  # Encode clarity
+color_encoded = encode_color(color)  # Encode color
+clarity_encoded = encode_clarity(clarity)  # Encode clarity
 st.write(carat)
 st.write(cut)
-st.write(color)
-st.write(clarity)
+st.write(color_encoded)
+st.write(clarity_encoded)
 st.write(depth)
 st.write(table)
 st.write(x)
