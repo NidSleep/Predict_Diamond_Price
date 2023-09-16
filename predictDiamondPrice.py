@@ -46,6 +46,8 @@ if st.button("Predict Diamond Price"):
     predicted_price = predict_price(carat, cut, color, clarity, depth, table, x, y, z)
     if predicted_price is not None:
         st.success(f"Predicted Price: ${predicted_price:.2f}")
+        st.write("Input Data:")
+        st.write(input_data)
     else:
         st.error("An error occurred while making predictions.")
 
