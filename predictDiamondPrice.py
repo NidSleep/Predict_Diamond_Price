@@ -50,6 +50,8 @@ if st.button("Predict Diamond Price"):
         st.write(input_data)
     else:
         st.error("An error occurred while making predictions.")
+        st.write("Input Data:")
+        st.write(input_data)
 
 # Upload a dataset for bulk prediction
 st.header("Bulk Import and Predict")
