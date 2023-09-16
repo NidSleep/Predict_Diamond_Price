@@ -17,7 +17,7 @@ def encode_color(color):
 def encode_clarity(clarity):
     return clarity_encoding.get(clarity, 0)  # Default to 0 if clarity is not found
 
-def predict_price(carat, cut, color, clarity, depth, table, x, y, z):
+def predict_price(carat, color, clarity, depth, table, x, y, z):
     try:
     
         # Make price predictions using the model
