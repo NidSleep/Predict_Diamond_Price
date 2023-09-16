@@ -18,9 +18,7 @@ def encode_clarity(clarity):
 
 def predict_price(carat, cut, color, clarity, depth, table, x, y, z):
     try:
-        color = encode_color(color)  # Encode color
-        clarity = encode_clarity(clarity)  # Encode clarity
-
+    
         # Make price predictions using the model
         input_data = np.array([carat, color, clarity, x, y, z]).reshape(1, -1)
         predicted_price = model.predict(input_data)
@@ -41,6 +39,8 @@ table = st.slider("Table:", 50.0, 80.0, 50.0, 0.1)
 x = st.slider("Length (mm):", 0.0, 10.0, 0.0, 0.1)
 y = st.slider("Width (mm):", 0.0, 10.0, 0.0, 0.1)
 z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.1)
+color = encode_color(color)  # Encode color
+clarity = encode_clarity(clarity)  # Encode clarity
 st.write(carat)
 st.write(cut)
 st.write(color)
