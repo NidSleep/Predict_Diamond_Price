@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 
 # Load your trained scikit-learn KNeighborsRegressor model here
-model = joblib.load('model.pkl')
+model = joblib.load('model2.pkl')
 
 # Dictionary to encode color and clarity
 color_encoding = {"b'J'": 1, "b'I'": 2, "b'H'": 3, "b'G'": 4, "b'F'": 5, "b'E'": 6, "b'D'": 7}
