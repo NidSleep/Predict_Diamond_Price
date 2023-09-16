@@ -43,6 +43,13 @@ y = st.slider("Width (mm):", 0.0, 10.0, 0.0, 0.1)
 z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.1)
 st.write(carat)
 st.write(cut)
+st.write(color)
+st.write(clarity)
+st.write(depth)
+st.write(table)
+st.write(x)
+st.write(y)
+st.write(z)
 
 if st.button("Predict Diamond Price"):
     predicted_price = predict_price(carat, cut, color, clarity, depth, table, x, y, z)
