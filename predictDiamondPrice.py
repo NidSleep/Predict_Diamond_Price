@@ -53,7 +53,7 @@ st.write(y)
 st.write(z)
 
 if st.button("Predict Diamond Price"):
-    predicted_price = predict_price(carat, cut, color, clarity, depth, table, x, y, z)
+    predicted_price = predict_price(carat, color, clarity, depth, table, x, y, z)
     if predicted_price is not None:
         st.success(f"Predicted Price: ${predicted_price:.2f}")
         st.write("Input Data:")
