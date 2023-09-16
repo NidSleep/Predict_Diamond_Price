@@ -7,8 +7,9 @@ import numpy as np
 model = joblib.load('model2.pkl')
 
 # Dictionary to encode color and clarity
-color_encoding = {"b'J'": 1, "b'I'": 2, "b'H'": 3, "b'G'": 4, "b'F'": 5, "b'E'": 6, "b'D'": 7}
-clarity_encoding = {"b'I1'": 1, "b'SI2'": 2, "b'SI1'": 3, "b'VS2'": 4, "b'VS1'": 5, "b'VVS2'": 6, "b'VVS1'": 7, "b'IF'": 8}
+color_encoding = {'J': 1, 'I': 2, 'H': 3, 'G': 4, 'F': 5, 'E': 6, 'D': 7}
+clarity_encoding = {'I1': 1, 'SI2': 2, 'SI1': 3, 'VS2': 4, 'VS1': 5, 'VVS2': 6, 'VVS1': 7, 'IF': 8}
+
 
 def encode_color(color):
     return color_encoding.get(color, 0)  # Default to 0 if color is not found
