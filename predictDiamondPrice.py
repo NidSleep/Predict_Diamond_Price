@@ -54,6 +54,7 @@ st.write(z)
 
 if st.button("Predict Diamond Price"):
     input_data = np.array([carat, color, clarity, x, y, z]).reshape(1, -1)
+    st.write(input_data)
     predicted_price = model.predict(input_data)
     #predicted_price = predict_price(carat, color, clarity, depth, table, x, y, z)
     if predicted_price is not None:
