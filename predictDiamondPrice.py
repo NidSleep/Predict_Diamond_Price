@@ -65,7 +65,7 @@ if uploaded_file is not None:
             df = pd.read_csv(uploaded_file)
 
         # Predict prices for each row and add a new column 'Predicted Price' to the dataset
-        df['Predicted Price'] = df.apply(lambda row: predict_price(row['carat'], row['cut'], row['color'], row['clarity'], row['depth'], row['table'], row['x'], row['y'], row['z']), axis=1)
+        df['Predicted Price'] = df.apply(lambda row: predict_price(row['carat'], row['color'], row['clarity'], row['depth'], row['table'], row['x'], row['y'], row['z']), axis=1)
 
         # Display the dataset with predictions
         st.write(df)
