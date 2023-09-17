@@ -53,6 +53,15 @@ if st.button("Predict Diamond Price"):
     else:
         st.error("An error occurred while making predictions.")
 
+# pre-processing of the data in column
+color_encoding = {"b'J'": 1, "b'I'": 2, "b'H'": 3, "b'G'": 4, "b'F'": 5, "b'E'": 6, "b'D'": 7}
+clarity_encoding = {"b'I1'": 1, "b'SI2'": 2, "b'SI1'": 3, "b'VS2'": 4, "b'VS1'": 5, "b'VVS2'": 6, "b'VVS1'": 7, "b'IF'": 8}
+def encode_color(color):
+    return color_encoding.get(color, 0)  # Default to 0 if color is not found
+
+def encode_clarity(clarity):
+    return clarity_encoding.get(clarity, 0)  # Default to 0 if clarity is not found
+
 # Upload a dataset for bulk prediction
 st.header("Bulk Import and Predict")
 uploaded_file = st.file_uploader("Upload a CSV or Excel file:", type=["csv", "xlsx"])
@@ -64,10 +73,15 @@ if uploaded_file is not None:
         else:
             df = pd.read_csv(uploaded_file)
 
+        # Encode 'color' and 'clarity' columns
+        df['color_encoded'] = df['color'].apply(encode_color)
+        df['clarity_encoded'] = df['clarity'].apply(encode_clarity)
+
         # Predict prices for each row and add a new column 'Predicted Price' to the dataset
-        df['Predicted Price'] = df.apply(lambda row: predict_price(row['carat'], row['color'], row['clarity'], row['depth'], row['table'], row['x'], row['y'], row['z']), axis=1)
+        df['Predicted Price'] = df.apply(lambda row: predict_price(row['carat'], row['color_encoded'], row['clarity_encoded'], row['depth'], row['table'], row['x'], row['y'], row['z']), axis=1)
 
         # Display the dataset with predictions
         st.write(df)
     except Exception as e:
         st.error(f"An error occurred while importing the dataset: {str(e)}")
+
