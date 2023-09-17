@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import base64
 
 # Load your trained scikit-learn KNeighborsRegressor model here
 model = joblib.load('model2.pkl')
@@ -9,7 +10,6 @@ model = joblib.load('model2.pkl')
 # Dictionary to encode color and clarity
 color_encoding = {"J": 1, "I": 2, "H": 3, "G": 4, "F": 5, "E": 6, "D": 7}
 clarity_encoding = {"I1": 1, "SI2": 2, "SI1": 3, "VS2": 4, "VS1": 5, "VVS2": 6, "VVS1": 7, "IF": 8}
-
 
 def encode_color(color):
     return color_encoding.get(color, 0)  # Default to 0 if color is not found
@@ -19,7 +19,6 @@ def encode_clarity(clarity):
 
 def predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z):
     try:
-    
         # Make price predictions using the model
         input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)
         predicted_price = model.predict(input_data)
@@ -40,29 +39,24 @@ table = st.slider("Table:", 50.0, 80.0, 50.0, 0.1)
 x = st.slider("Length (mm):", 0.0, 10.0, 0.0, 0.1)
 y = st.slider("Width (mm):", 0.0, 10.0, 0.0, 0.1)
 z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.1)
-color_encoded = encode_color(color)  # Encode color
-clarity_encoded = encode_clarity(clarity)  # Encode clarity
 
 if st.button("Predict Diamond Price"):
-    #input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)
-    #st.write(input_data)
-    #predicted_price = model.predict(input_data)
-    predicted_price = predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z)
+    predicted_price = predict_price(carat, encode_color(color), encode_clarity(clarity), depth, table, x, y, z)
     if predicted_price is not None:
         st.success(f"Predicted Price: ${predicted_price:.2f}")
     else:
         st.error("An error occurred while making predictions.")
 
-# pre-processing of the data in column
+# Pre-processing of the data in columns
 color_encoding = {"b'J'": 1, "b'I'": 2, "b'H'": 3, "b'G'": 4, "b'F'": 5, "b'E'": 6, "b'D'": 7}
 clarity_encoding = {"b'I1'": 1, "b'SI2'": 2, "b'SI1'": 3, "b'VS2'": 4, "b'VS1'": 5, "b'VVS2'": 6, "b'VVS1'": 7, "b'IF'": 8}
-def encode_color(color):
+
+def encode_color_bulk(color):
     return color_encoding.get(color, 0)  # Default to 0 if color is not found
 
-def encode_clarity(clarity):
+def encode_clarity_bulk(clarity):
     return clarity_encoding.get(clarity, 0)  # Default to 0 if clarity is not found
 
-# Upload a dataset for bulk prediction
 st.header("Bulk Import and Predict")
 uploaded_file = st.file_uploader("Upload a CSV or Excel file:", type=["csv", "xlsx"])
 
@@ -74,14 +68,24 @@ if uploaded_file is not None:
             df = pd.read_csv(uploaded_file)
 
         # Encode 'color' and 'clarity' columns
-        df['color_encoded'] = df['color'].apply(encode_color)
-        df['clarity_encoded'] = df['clarity'].apply(encode_clarity)
+        df['color_encoded'] = df['color'].apply(encode_color_bulk)
+        df['clarity_encoded'] = df['clarity'].apply(encode_clarity_bulk)
 
         # Predict prices for each row and add a new column 'Predicted Price' to the dataset
         df['Predicted Price'] = df.apply(lambda row: predict_price(row['carat'], row['color_encoded'], row['clarity_encoded'], row['depth'], row['table'], row['x'], row['y'], row['z']), axis=1)
 
         # Display the dataset with predictions
-        st.write(df)
+        st.write(df[['carat', 'cut', 'color', 'clarity', 'depth', 'table', 'x', 'y', 'z', 'Predicted Price']])
+
+        # Create a function to download the CSV file
+        def download_csv(df):
+            csv = df.to_csv(index=False)
+            b64 = base64.b64encode(csv.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="predicted_prices.csv">Download CSV</a>'
+            return href
+
+        # Add a download button for the CSV file
+        st.markdown(download_csv(df), unsafe_allow_html=True)
+
     except Exception as e:
         st.error(f"An error occurred while importing the dataset: {str(e)}")
-
