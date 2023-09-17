@@ -42,15 +42,6 @@ y = st.slider("Width (mm):", 0.0, 10.0, 0.0, 0.1)
 z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.1)
 color_encoded = encode_color(color)  # Encode color
 clarity_encoded = encode_clarity(clarity)  # Encode clarity
-st.write(carat)
-st.write(cut)
-st.write(color_encoded)
-st.write(clarity_encoded)
-st.write(depth)
-st.write(table)
-st.write(x)
-st.write(y)
-st.write(z)
 
 if st.button("Predict Diamond Price"):
     #input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)
@@ -59,14 +50,8 @@ if st.button("Predict Diamond Price"):
     predicted_price = predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z)
     if predicted_price is not None:
         st.success(f"Predicted Price: ${predicted_price:.2f}")
-        st.write("Input Data:")
-        st.write(input_data)
     else:
         st.error("An error occurred while making predictions.")
-        st.write("Input Data:")
-        st.write(input_data)
-        st.write(carat)
-        st.write(cut)
 
 # Upload a dataset for bulk prediction
 st.header("Bulk Import and Predict")
