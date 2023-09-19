@@ -30,7 +30,7 @@ def predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z):
 st.title("Diamond Price Prediction")
 
 # Input fields
-carat = st.slider("Carat:", 0.2, 5.0, 0.2, 0.01)
+carat = st.slider("Carat:", 0.2, 3.0, 0.2, 0.01)
 cut = st.selectbox("Cut:", ["Fair", "Good", "Very Good", "Premium", "Ideal"])
 color = st.selectbox("Color:", ["J", "I", "H", "G", "F", "E", "D"])
 clarity = st.selectbox("Clarity:", ["I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF"])
