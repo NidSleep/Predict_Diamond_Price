@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import numpy as np
 import base64
-import norm 
+from scipy.stats import norm
 
 # Load your trained scikit-learn KNeighborsRegressor model here
 model = joblib.load('model2.pkl')
