@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import numpy as np
 import base64
+import norm 
 
 # Load your trained scikit-learn KNeighborsRegressor model here
 model = joblib.load('model2.pkl')
@@ -42,8 +43,23 @@ z = st.slider("Depth (mm):", 0.0, 10.0, 0.0, 0.01)
 
 if st.button("Predict Diamond Price"):
     predicted_price = predict_price(carat, encode_color(color), encode_clarity(clarity), depth, table, x, y, z)
+    # Define the desired confidence level (e.g., 95%)
+    confidence_level = 0.95
+
+    # Calculate the critical value (z-score) for the desired confidence level
+    critical_value = norm.ppf((1 + confidence_level) / 2)  # For a two-tailed test
+    
+    # Calculate the margin of error
+    margin_of_error = std_error * critical_value
     if predicted_price is not None:
         st.success(f"Predicted Price: ${predicted_price:.2f}")
+        # Calculate lower and upper bounds of the prediction interval
+        lower_bound = predicted_price - margin_of_error
+        upper_bound = predicted_price + margin_of_error
+        
+        st.write(f"Prediction Interval: ${lower_bound:.2f} to ${upper_bound:.2f}")
+        st.write("Input Data:")
+        st.write(input_data)
     else:
         st.error("An error occurred while making predictions.")
 
