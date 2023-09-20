@@ -60,7 +60,8 @@ if st.button("Predict Diamond Price"):
         # Calculate lower and upper bounds of the prediction interval
         lower_bound = predicted_price - margin_of_error
         upper_bound = predicted_price + margin_of_error
-        st.success(f"Predicted Price: <span style='font-size: 24px;'>${predicted_price:.2f}</span> (<span style='font-size: 18px;'>${lower_bound:.2f} to ${upper_bound:.2f}</span>)")
+        st.markdown(f"Predicted Price: <span style='font-size: 24px;'>${predicted_price:.2f}</span> (<span style='font-size: 18px;'>${lower_bound:.2f} to ${upper_bound:.2f}</span>)", unsafe_allow_html=True)
+
 
     else:
         st.error("An error occurred while making predictions.")
