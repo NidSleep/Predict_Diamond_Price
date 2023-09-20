@@ -60,7 +60,7 @@ if st.button("Predict Diamond Price"):
         # Calculate lower and upper bounds of the prediction interval
         lower_bound = predicted_price - margin_of_error
         upper_bound = predicted_price + margin_of_error
-        st.success(f"Predicted Price: ${predicted_price:.2f} "f"( ${lower_bound:.2f} to ${upper_bound:.2f} )" )
+        st.success(f"Predicted Price: ${predicted_price:.2f} "f"               ( ${lower_bound:.2f} to ${upper_bound:.2f} )" )
     else:
         st.error("An error occurred while making predictions.")
 
