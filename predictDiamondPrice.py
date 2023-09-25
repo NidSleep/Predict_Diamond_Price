@@ -4,6 +4,7 @@ import joblib
 import numpy as np
 import base64
 from scipy.stats import norm
+from sklearn.tree import DecisionTreeRegressor
 
 # Load your trained scikit-learn KNeighborsRegressor model here
 model = joblib.load('model4.pkl')
