@@ -26,9 +26,9 @@ def encode_clarity(clarity):
 def predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z):
     try:
         # Make price predictions using the model
-        input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)
-        
+        input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)        
         predicted_price = model.predict(input_data)
+        
         return predicted_price[0]
     except Exception as e:
         return None
