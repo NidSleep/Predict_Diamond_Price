@@ -6,7 +6,7 @@ import base64
 from scipy.stats import norm
 
 # Load your trained scikit-learn KNeighborsRegressor model here
-model = joblib.load('model3.pkl')
+model = joblib.load('model.pkl')
 
 # Dictionary to encode color and clarity
 color_encoding = {"J": 1, "I": 2, "H": 3, "G": 4, "F": 5, "E": 6, "D": 7}
@@ -28,7 +28,7 @@ def predict_price(carat, color_encoded, clarity_encoded, depth, table, x, y, z):
         # Make price predictions using the model
         input_data = np.array([carat, color_encoded, clarity_encoded, x, y, z]).reshape(1, -1)
         predicted_price = model.predict(input_data)
-        return predicted_price[0]*0.1
+        return predicted_price[0]
     except Exception as e:
         return None
 
