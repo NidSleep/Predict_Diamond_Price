@@ -6,7 +6,7 @@ import base64
 from scipy.stats import norm
 
 # Load your trained scikit-learn KNeighborsRegressor model here
-model = joblib.load('model3.zip.001')
+model = joblib.load('model3.pkl')
 
 # Dictionary to encode color and clarity
 color_encoding = {"J": 1, "I": 2, "H": 3, "G": 4, "F": 5, "E": 6, "D": 7}
