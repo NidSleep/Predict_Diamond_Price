@@ -1,6 +1,7 @@
 numpy
 joblib
 xgboost
+RandomForestRegressor
 openpyxl>=3.0.10
 pandas>=1.0.0
 streamlit>=0.80.0
